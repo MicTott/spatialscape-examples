@@ -9,7 +9,7 @@ open-access data terms [to confirm on that page before publishing the app].
 What the app will show: three coronal slices side by side (one replicate each), cells by Vizgen's
 segmentation with their boundaries, all 483 genes, every transcript, and the DAPI and polyT images at one z plane.
 
-| Step | Where | What | Cost |
+| Step | Where, on a cluster | What | Cost |
 |---|---|---|---|
 | `tools/files_from_bucket.py` | anywhere | lists the bucket and writes `files.tsv` (what to fetch) | seconds |
 | `download.sh` | transfer node | per slice: `cell_by_gene.csv`, `cell_metadata.csv`, `detected_transcripts.csv` (3.6 GB), `cell_boundaries/*.hdf5` (5.3 GB), two 11 GB mosaics and the transform | ~95 GB, hours |

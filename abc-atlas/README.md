@@ -10,7 +10,7 @@ subclass, supertype, cluster) and the CCF parcellation; all 4.04 M 10x nuclei as
 whole-brain UMAP, the view the Allen site shows, with the same vocabulary; any of the 500 MERFISH genes on the
 sections and all 32k genes on the nuclei.
 
-| Step | Where | What | Cost |
+| Step | Where, on a cluster | What | Cost |
 |---|---|---|---|
 | `tools/files_from_manifest.py` | anywhere | writes `files.tsv` from the release manifest | seconds |
 | `download.sh` | transfer node | the files in `files.tsv` into `raw/` | ~160 GB, hours |

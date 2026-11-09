@@ -17,9 +17,8 @@ url="https://zenodo.org/records/$RECORD/files/$ds-processed.tar?download=1"
 tmp="$ds/processed.partial.tar"
 echo "fetch   $ds-processed.tar"
 curl -sS -L -C - -o "$tmp" "$url"
-echo "unpack  into $ds/processed/"
-mkdir -p "$ds/processed"
-tar -xf "$tmp" -C "$ds"      # the tar holds processed/... and the dataset.yaml it was built with, as dataset.zenodo.yaml
+echo "unpack  into $ds/"
+tar -xf "$tmp" -C "$ds"      # processed/ (or raw/ for a dataset with no prepare step) and the yaml it was built with, as dataset.zenodo.yaml
 rm -f "$tmp"
-if [ -f MANIFEST.sha256 ]; then (cd "$ds" && grep " processed/" ../MANIFEST.sha256 | grep "^[0-9a-f]* *$ds/" | sed "s| $ds/| |" | shasum -a 256 -c --quiet) && echo "checksums ok"; fi
+if [ -f MANIFEST.sha256 ]; then (cd "$ds" && grep "^[0-9a-f]* *$ds/" ../MANIFEST.sha256 | sed "s| $ds/| |" | shasum -a 256 -c --quiet) && echo "checksums ok"; fi
 echo "next: spatialscape build $ds/dataset.yaml"

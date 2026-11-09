@@ -9,7 +9,7 @@ What the app will show: eight sections on one canvas, cells with the paper's cel
 transcript (with its nuclear / cytoplasmic / membrane compartment), and the per-FOV composite images stitched
 into one picture per section.
 
-| Step | Where | What | Cost |
+| Step | Where, on a cluster | What | Cost |
 |---|---|---|---|
 | `download.sh` | transfer node | `All SMI Flat data.tar.gz` (11.3 GB) and the Giotto object (0.9 GB) | ~12 GB, under an hour |
 | `slurm/unpack.sbatch` | compute | unpacks both archives | minutes |

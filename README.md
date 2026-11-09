@@ -3,10 +3,12 @@
 Public spatial transcriptomics datasets built into [spatialscape](https://github.com/MicTott/spatialscape) apps:
 one folder per dataset with the script that fetches the published files, the script (when one is needed) that
 turns them into an AnnData, the `dataset.yaml` that describes the app, and a README with the source, the licence
-and what each step costs. Nothing is edited by hand: every app rebuilds from these files.
+and what each step costs. Nothing is edited by hand: every app rebuilds from these files. Start with `visium-human-dlpfc`, which
+builds straight from an R object with no prepare step.
 
 | Folder | Technology | Scale | Source | Prepare step |
 |---|---|---|---|---|
+| `visium-human-dlpfc` | Visium, H&E, manual layer labels | 12 sections, 47,681 spots | spatialLIBD (Maynard et al. 2021) | none: the yaml reads the SpatialExperiment `.rds` |
 | `visium-cytassist-mouse-brain` | Visium CytAssist, H&E | 1 section, 2,310 spots | 10x Genomics (CC BY) | reshapes Space Ranger files |
 | `visium-hd-mouse-brain` | Visium HD, 8 µm bins, H&E | 1 section, 394k bins | 10x Genomics (CC BY) | reshapes Space Ranger files |
 | `xenium-mouse-brain` | Xenium Prime 5K: image, shapes, nuclei, transcripts | 1 section, 63k cells, 5,006 genes | 10x Genomics (CC BY) | reshapes the outs folder |

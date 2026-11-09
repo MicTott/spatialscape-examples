@@ -8,7 +8,7 @@ What the app shows: 63k cells coloured by 10x's graph clusters and 5,006 genes; 
 (DAPI, boundary, interior RNA, interior protein) at 0.85 µm per pixel with per-channel switches; cell shapes, the
 nucleus boundaries as a second segmentation, and every decoded transcript once zoomed in.
 
-| Step | Where | What | Cost |
+| Step | Where, on a cluster | What | Cost |
 |---|---|---|---|
 | `download.sh` | transfer node | the `_outs.zip` (13.3 GB), unzipped into `raw/outs/` | ~15 min, 27 GB |
 | `prepare.py` (`sbatch slurm/prepare.sbatch`) | compute | `cell_feature_matrix.h5` + `cells.parquet` + the graph clusters → `processed/adata.h5ad` | 2 min, 8 GB |

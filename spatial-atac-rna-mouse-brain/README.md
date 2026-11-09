@@ -17,7 +17,7 @@ the ATAC peaks as features next to the genes.
 | MouseBrain_20um, 100 x 100 barcodes | GSM6758285 (1.5 GB) | GSM6753043 | 10,000 |
 | HumanBrain_50um | GSM6206884 (456 MB) | GSM6206885 | 2,500 |
 
-| Step | Where | What | Cost |
+| Step | Where, on a cluster | What | Cost |
 |---|---|---|---|
 | `download.sh` | transfer node | the files above from GEO's FTP (over HTTPS), ~2.9 GB | minutes |
 | `prepare.py` | compute | RNA matrix + positions → one h5ad per section; clusters for the tracks | minutes |

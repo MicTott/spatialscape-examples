@@ -14,7 +14,7 @@ resolution (0.2125 µm per pixel; `max_size:` in `dataset.yaml` would keep a coa
 alignment), cell and nucleus shapes, every transcript, and 10x's cell groups; the dataset that tests the molecule
 tiler and the image pyramid an order of magnitude past Xenium.
 
-| Step | Where | What | Cost |
+| Step | Where, on a cluster | What | Cost |
 |---|---|---|---|
 | `download.sh` | transfer node | `_outs.zip` of each section (55 GB + 89 GB), the breast H&E (18 GB), the cell-group tables | ~170 GB, hours |
 | `slurm/unzip.sbatch` (array of 2) | compute | checksum and unpack each archive into `outs/` | ~1 h, 160 GB more disk |

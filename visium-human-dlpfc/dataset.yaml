@@ -1,0 +1,34 @@
+# Human dorsolateral prefrontal cortex on Visium (Maynard et al. 2021): the spatialLIBD SpatialExperiment, read as it
+# is. `spatialscape init raw/spe_dlpfc.rds` wrote the first version of this file; what is left is what we kept of its
+# menu: the manual layer labels as the domain, three QC columns, and the donor / position metadata to split the view by.
+id: visium-human-dlpfc
+name: Human DLPFC, Visium (Maynard et al. 2021)
+description: "Twelve Visium sections of human dorsolateral prefrontal cortex from three donors (Maynard et al. 2021, Nature Neuroscience; the spatialLIBD package), with the manual cortical layer annotation and the H&E of each section."
+default_gene: SNAP25
+default_color: { field: domain }
+thumbnail_sample: vis_151673
+layout: { mode: grid }
+
+fields:
+  - { id: domain, name: Layer (manual annotation), type: categorical, categories: [L1, L2, L3, L4, L5, L6, WM] }
+  - { id: total_counts, name: Total counts, type: continuous }
+  - { id: detected_genes, name: Detected genes, type: continuous }
+  - { id: mito_percent, name: Mito %, type: continuous }
+meta:
+  - { id: subject, name: Donor }
+  - { id: position, name: Position (µm) }
+  - { id: replicate, name: Replicate }
+
+samples:
+  - path: raw/spe_dlpfc.rds                  # one sample per sample_id (12 sections); the H&E comes from the object's imgData
+    platform: visium
+    assay: logcounts
+    id: "vis_{name}"
+    name: "Section {name}"
+    group: "{name}"
+    fields:
+      domain: layer_guess_reordered_short    # L1..L6, WM; 352 spots without a label
+      total_counts: sum_umi
+      detected_genes: sum_gene
+      mito_percent: { column: expr_chrM_ratio, scale: 100 }
+    meta: { subject: { column: subject }, position: { column: position }, replicate: { column: replicate } }
