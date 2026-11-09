@@ -1,0 +1,43 @@
+# Allen Brain Cell Atlas, whole mouse brain. The MERFISH sections come from processed/merfish/
+# (one h5ad per section, made by prepare_merfish.py); the 10x nuclei are one embedding sample on Allen's
+# whole-brain UMAP, the view the Allen site shows (WholeBrain.h5ad from prepare_10x.py). Colours are the atlas's
+# own (palette.json from make_palette.py).
+id: abc-atlas
+name: Whole mouse brain (Allen Brain Cell Atlas)
+description: "The adult mouse brain atlas of Yao et al. and Zhang et al. (2023): 4.0 million cells on 59 coronal MERFISH sections with the 500-gene panel, and all 4.0 million 10x nuclei at 32,285 genes on the atlas's whole-brain UMAP, labelled at every level of the 5,000-cluster taxonomy and the sections by CCF region. Data CC BY-NC 4.0, Allen Institute."
+default_gene: Slc17a7
+default_color: { field: subclass }
+palette: palette.json
+layout: { mode: grid, gutter_fraction: 0.05 }
+
+fields:
+  - { id: class, name: Class, type: categorical, palette_key: class }
+  - { id: subclass, name: Subclass, type: categorical, palette_key: subclass }
+  - { id: supertype, name: Supertype, type: categorical, palette_key: supertype }
+  - { id: cluster, name: Cluster, type: categorical, palette_key: cluster }
+  - { id: neurotransmitter, name: Neurotransmitter, type: categorical, palette_key: neurotransmitter }
+  - { id: ccf_division, name: CCF division, type: categorical, palette_key: parcellation_division }
+  - { id: ccf_structure, name: CCF structure, type: categorical, palette_key: parcellation_structure }
+  - { id: region, name: Dissection region (10x), type: categorical }
+  - { id: chemistry, name: 10x chemistry, type: categorical }
+
+platforms:
+  merfish:
+    fields: { class: class, subclass: subclass, supertype: supertype, cluster: cluster, neurotransmitter: neurotransmitter, ccf_division: parcellation_division, ccf_structure: parcellation_structure }
+    images: []
+  snrnaseq:
+    kind: embedding
+    coords: obsm/X_umap
+    group: 10x nuclei
+    fields: { class: class, subclass: subclass, supertype: supertype, cluster: cluster, neurotransmitter: neurotransmitter, region: region, chemistry: library_method }
+
+samples:
+  - glob: processed/merfish/*.h5ad     # one sample per section; {stem} is the section label
+    platform: merfish
+    id: "merfish_{stem}"
+    name: "{stem}"
+    group: "{stem}"
+  - path: processed/tenx/WholeBrain.h5ad    # every 10x nucleus on the whole-brain UMAP (prepare_10x.py concat WholeBrain)
+    platform: snrnaseq
+    id: tenx_wholebrain
+    name: All nuclei (10x)

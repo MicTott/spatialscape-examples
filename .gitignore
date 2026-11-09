@@ -1,0 +1,10 @@
+# data and outputs live beside each dataset's yaml and are never committed
+*/raw/
+*/processed/
+*/bundles/
+*/logs/
+env/
+.cache/
+site/
+__pycache__/
+.DS_Store

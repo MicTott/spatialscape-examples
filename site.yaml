@@ -1,0 +1,24 @@
+# Every example as one gallery: `spatialscape site build site.yaml` builds any dataset whose bundle is missing or
+# stale and writes site/ (the viewer, the bundles and the landing page). `spatialscape serve site` shows it.
+title: spatialscape examples
+intro: Public spatial transcriptomics datasets, one app per technology, built from the scripts in this repository.
+datasets:
+  - config: visium-cytassist-mouse-brain/dataset.yaml
+    tags: [visium, mouse brain]
+  - config: visium-hd-mouse-brain/dataset.yaml
+    tags: [visium hd, mouse brain]
+  - config: xenium-mouse-brain/dataset.yaml
+    tags: [xenium, mouse brain, transcripts]
+  - config: merscope-mouse-brain/dataset.yaml
+    tags: [merscope, mouse brain, transcripts]
+  - config: cosmx-nsclc/dataset.yaml
+    paper: { title: He et al. 2022, Nature Biotechnology, url: https://doi.org/10.1038/s41587-022-01483-z }
+    tags: [cosmx, lung cancer, transcripts]
+  - config: spatial-atac-rna-mouse-brain/dataset.yaml
+    paper: { title: Zhang et al. 2023, Nature, url: https://doi.org/10.1038/s41586-023-05795-1 }
+    tags: [spatial atac, multiome, tracks]
+  - config: atera/dataset.yaml
+    tags: [atera, whole transcriptome, transcripts]
+  - config: abc-atlas/dataset.yaml
+    paper: { title: Yao et al. 2023, Nature, url: https://doi.org/10.1038/s41586-023-06812-z }
+    tags: [merfish, snrna-seq, whole mouse brain]

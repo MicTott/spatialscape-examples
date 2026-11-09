@@ -1,0 +1,18 @@
+# Visium CytAssist mouse brain, one section. images: auto finds the hires H&E in spatial/ and the spot scale.
+id: visium-cytassist-mouse-brain
+name: Mouse brain, Visium CytAssist
+description: "One FFPE coronal section of mouse brain on Visium CytAssist (10x Genomics public dataset), with graph clusters and the H&E."
+default_gene: Slc17a7
+default_color: { field: cluster }
+layout: { mode: grid }
+fields:
+  - { id: cluster, name: Graph cluster (10x), type: categorical }
+  - { id: total_counts, name: Total counts, type: continuous }
+  - { id: detected_genes, name: Detected genes, type: continuous }
+samples:
+  - id: section
+    name: Mouse brain, coronal
+    platform: visium
+    path: processed/section/adata.h5ad
+    fields: { cluster: cluster, total_counts: total_counts, detected_genes: detected_genes }
+    images: auto

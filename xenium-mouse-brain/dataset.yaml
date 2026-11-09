@@ -1,0 +1,25 @@
+# Xenium Prime 5K mouse brain: one section, built from processed/ (the cells) and raw/ (image,
+# boundaries, transcripts). Paths are relative to this file.
+id: xenium-mouse-brain
+name: Mouse brain, Xenium Prime 5K
+description: "One coronal section of fresh-frozen mouse brain on Xenium Prime 5K (10x Genomics public dataset): 5,006 genes, the morphology image, cell and nucleus boundaries and every transcript."
+default_gene: Slc17a7
+default_color: { field: cluster }
+layout: { mode: grid }
+
+fields:
+  - { id: cluster, name: Graph cluster (10x), type: categorical }
+  - { id: total_counts, name: Transcripts per cell, type: continuous }
+  - { id: cell_area, name: Cell area (µm²), type: continuous }
+  - { id: nucleus_area, name: Nucleus area (µm²), type: continuous }
+
+samples:
+  - id: coronal
+    name: Mouse brain, coronal
+    platform: xenium
+    path: processed/adata.h5ad
+    fields: { cluster: cluster, total_counts: transcript_counts, cell_area: cell_area, nucleus_area: nucleus_area }
+    polygons: { path: raw/outs/cell_boundaries.parquet }     # nucleus_boundaries.parquet next to it is compared automatically
+    molecules: { path: raw/outs/transcripts.parquet }
+    images:
+      - { id: morphology, name: Morphology, path: raw/outs/morphology_focus/morphology_focus_0000.ome.tif, kind: multichannel, pixel_size: auto, pixels_per_unit: 4.705882, max_size: 8600 }   # 0.2125 um/px scan read at about 0.85 um/px

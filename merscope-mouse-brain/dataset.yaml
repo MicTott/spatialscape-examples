@@ -1,0 +1,47 @@
+# MERSCOPE mouse brain receptor map (Vizgen): three coronal slices, one replicate each. Cells and boundaries from
+# processed/ (prepare.py), transcripts and mosaics from raw/. Paths are relative to this file.
+id: merscope-mouse-brain
+name: Mouse brain receptor map, MERSCOPE
+description: "Three coronal mouse brain slices from Vizgen's open-access MERFISH Mouse Brain Receptor Map (MERSCOPE, 483 genes): cell boundaries, every detected transcript, and the DAPI and polyT mosaics at one z plane."
+default_gene: Slc17a7
+default_color: { field: cluster }
+layout: { mode: grid }
+
+fields:
+  - { id: cluster, name: "Leiden cluster (computed here)", type: categorical }
+  - { id: total_counts, name: Transcripts per cell, type: continuous }
+  - { id: volume, name: "Cell volume (µm³)", type: continuous }
+
+defaults:
+  platform: merfish
+  fields: { cluster: cluster, total_counts: total_counts, volume: volume }
+
+samples:
+  # molecules: detected_transcripts.csv has global_x / global_y in microns and the gene; this release carries no
+  # quality score or cell assignment, so those columns are null. Images: the 4x reduced mosaics from mosaics.py;
+  # translate comes from each slice's micron_to_mosaic_pixel_transform.csv (prepare.py prints it) and pixel_size
+  # is four times the transform's
+  - id: slice1
+    name: Slice 1
+    path: processed/Slice1_Replicate1/adata.h5ad
+    molecules: { path: raw/Slice1_Replicate1/detected_transcripts.csv, feature_column: gene, x_column: global_x, y_column: global_y, qv_column: null, cell_column: null, nucleus_column: null }
+    polygons: { path: processed/Slice1_Replicate1/cell_boundaries.parquet }
+    images:
+      - { id: dapi, name: DAPI, path: processed/Slice1_Replicate1/mosaic_DAPI_z3_4x.tif, kind: multichannel, pixel_size: 0.434504, translate: [-30.331, -37.999], max_size: 12000 }
+      - { id: polyt, name: polyT, path: processed/Slice1_Replicate1/mosaic_polyT_z3_4x.tif, kind: multichannel, pixel_size: 0.434504, translate: [-30.331, -37.999], max_size: 12000 }
+  - id: slice2
+    name: Slice 2
+    path: processed/Slice2_Replicate1/adata.h5ad
+    molecules: { path: raw/Slice2_Replicate1/detected_transcripts.csv, feature_column: gene, x_column: global_x, y_column: global_y, qv_column: null, cell_column: null, nucleus_column: null }
+    polygons: { path: processed/Slice2_Replicate1/cell_boundaries.parquet }
+    images:
+      - { id: dapi, name: DAPI, path: processed/Slice2_Replicate1/mosaic_DAPI_z3_4x.tif, kind: multichannel, pixel_size: 0.434412, translate: [40.968, -102.020], max_size: 12000 }
+      - { id: polyt, name: polyT, path: processed/Slice2_Replicate1/mosaic_polyT_z3_4x.tif, kind: multichannel, pixel_size: 0.434412, translate: [40.968, -102.020], max_size: 12000 }
+  - id: slice3
+    name: Slice 3
+    path: processed/Slice3_Replicate1/adata.h5ad
+    molecules: { path: raw/Slice3_Replicate1/detected_transcripts.csv, feature_column: gene, x_column: global_x, y_column: global_y, qv_column: null, cell_column: null, nucleus_column: null }
+    polygons: { path: processed/Slice3_Replicate1/cell_boundaries.parquet }
+    images:
+      - { id: dapi, name: DAPI, path: processed/Slice3_Replicate1/mosaic_DAPI_z3_4x.tif, kind: multichannel, pixel_size: 0.432036, translate: [0.000, 0.000], max_size: 12000 }
+      - { id: polyt, name: polyT, path: processed/Slice3_Replicate1/mosaic_polyT_z3_4x.tif, kind: multichannel, pixel_size: 0.432036, translate: [0.000, 0.000], max_size: 12000 }

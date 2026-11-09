@@ -1,0 +1,51 @@
+# Spatial ATAC + RNA co-profiling (Zhang et al. 2023): RNA on 20 um pixels with the tissue image from spatial/,
+# ATAC as pseudobulk tracks per RNA cluster from the fragment files. Pixel coordinates are pixels of each section's
+# hires image, and the images were scanned at different magnifications: a 20 um pixel is spot_diameter_fullres of
+# them in that section's scalefactors_json.json (63.78, 27.03 and 23.43 px), so the micron rule is per section.
+id: spatial-atac-rna-mouse-brain
+name: Spatial ATAC + RNA, mouse brain (Zhang et al. 2023)
+description: "Chromatin accessibility and gene expression in the same 20 µm pixels of mouse brain, from the spatial epigenome–transcriptome co-profiling of Zhang et al. 2023 (GEO GSE205055): two 50 x 50 arrays (1 mm) and one 100 x 100 array (2 mm). RNA on the pixels; ATAC as tracks per cluster in the genome panel."
+default_gene: Slc17a7
+default_color: { field: cluster }
+layout: { mode: grid }
+
+fields:
+  - { id: cluster, name: "RNA cluster (Leiden, computed here)", type: categorical }
+  - { id: total_counts, name: Total counts, type: continuous }
+  - { id: detected_genes, name: Detected genes, type: continuous }
+
+defaults:
+  platform: other
+  images: auto
+  fields: { cluster: cluster, total_counts: total_counts, detected_genes: detected_genes }
+
+samples:
+  - id: mouse_20um
+    name: Mouse brain, 20 µm pixels, 50 x 50 array (1 mm)
+    path: processed/MouseBrain_20um/adata.h5ad
+    microns: { microns_per_unit: 0.3136 }    # 20 um per 63.78 px
+    point_radius: 10
+    transform: { rotate: 270 }    # a quarter turn clockwise on screen (rotate counts counter-clockwise)
+    tracks: { fragments: raw/MouseBrain_20um/GSM6204623_MouseBrain_20um_fragments.tsv.gz, barcode_column: barcode, by: [cluster], genome: mm10, bin: 100 }
+  - id: mouse_20um_rep2
+    name: Mouse brain, 20 µm pixels, 50 x 50 array, replicate
+    path: processed/MouseBrain_20um_rep2/adata.h5ad
+    microns: { microns_per_unit: 0.7399 }    # 20 um per 27.03 px
+    point_radius: 10
+    transform: { rotate: 270 }    # a quarter turn clockwise on screen (rotate counts counter-clockwise)
+    tracks: { fragments: raw/MouseBrain_20um_rep2/GSM6758284_MouseBrain_20um_repATAC_fragments.tsv.gz, barcode_column: barcode, by: [cluster], genome: mm10, bin: 100 }
+  - id: mouse_20um_100bc
+    name: Mouse brain, 20 µm pixels, 100 x 100 array (2 mm)
+    path: processed/MouseBrain_20um_100bc/adata.h5ad
+    microns: { microns_per_unit: 0.8536 }    # 20 um per 23.43 px
+    point_radius: 10
+    transform: { rotate: 270 }    # a quarter turn clockwise on screen (rotate counts counter-clockwise)
+    tracks: { fragments: raw/MouseBrain_20um_100bc/GSM6758285_MouseBrain_20um_100barcodes_ATAC_fragments.tsv.gz, barcode_column: barcode, by: [cluster], genome: mm10, bin: 100 }
+  # The human brain section (50 um pixels, hg38) is left out of this app: the genome panel is one genome per
+  # dataset, so a human section belongs in an app of its own (HumanBrain_50um is prepared under processed/).
+  # - id: human_50um
+  #   name: Human brain, 50 µm pixels
+  #   path: processed/HumanBrain_50um/adata.h5ad
+  #   microns: { microns_per_unit: 0.784 }     # 50 um per its spot_diameter_fullres; check HumanBrain_50um/spatial/scalefactors_json.json
+  #   point_radius: 25
+  #   tracks: { fragments: raw/HumanBrain_50um/GSM6206884_HumanBrain_50um_fragments.tsv.gz, barcode_column: barcode, by: [cluster], genome: hg38, bin: 100 }

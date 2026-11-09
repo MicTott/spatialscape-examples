@@ -1,0 +1,42 @@
+# Atera whole-transcriptome previews: two FFPE tumour sections at about 18,000 genes per cell in situ. The cells come
+# from processed/ (prepare.py), the boundaries, transcripts and morphology images from the outs folders in
+# raw/. Paths are relative to this file.
+id: atera
+name: Atera whole-transcriptome previews (FFPE tumours)
+description: "Two FFPE sections, human breast and cervical cancer, from the preview datasets 10x Genomics published with the Atera instrument: whole-transcriptome in situ (about 18,000 genes per cell), the morphology image, cell and nucleus boundaries and every transcript."
+default_gene: EPCAM
+default_color: { field: cluster }
+layout: { mode: grid }
+
+fields:
+  - { id: cluster, name: Graph cluster (10x), type: categorical }
+  - { id: total_counts, name: Transcripts per cell, type: continuous }
+  - { id: cell_area, name: "Cell area (µm²)", type: continuous }
+  - { id: nucleus_area, name: "Nucleus area (µm²)", type: continuous }
+
+defaults:
+  platform: xenium          # the same outs layout and 0.2125 µm/px morphology image as Xenium
+  # images: `pixels_per_unit` places the scan (4.705882 image pixels per µm, the 0.2125 µm scan). No `max_size`, so
+  # the full scan is kept (0.2125 µm per pixel): the stress test for whole-slide images. The build reads a whole
+  # level of the four 16-bit channels at once (10 GB for breast, 14 GB for cervical) and refuses a read above a sixth
+  # of the job's memory, hence the 128 GB in slurm/build.sbatch. `max_size: 24000` would keep the 0.425 µm level instead.
+  fields: { cluster: cluster, total_counts: transcript_counts, cell_area: cell_area, nucleus_area: nucleus_area }
+
+samples:
+  - id: breast
+    name: Breast cancer, FFPE
+    path: processed/breast/adata.h5ad
+    polygons: { path: raw/breast/outs/cell_boundaries.parquet }      # nucleus_boundaries.parquet next to it is picked up too
+    molecules: { path: raw/breast/outs/transcripts.parquet }
+    images:
+      - { id: morphology, name: Morphology, path: raw/breast/outs/morphology_focus/ch0000_dapi.ome.tif, kind: multichannel, pixel_size: auto, pixels_per_unit: 4.705882 }
+      # The H&E 10x published beside the bundle (raw/breast/he_image.ome.tif, 17.7 GB) is a separate
+      # 20x brightfield scan (90,368 x 47,337 px at 0.274 um/px, a 24.7 x 13.0 mm field) with no transform to the
+      # Xenium frame in its OME metadata; it goes in as a second image once an alignment matrix is known.
+  - id: cervical
+    name: Cervical cancer, FFPE
+    path: processed/cervical/adata.h5ad
+    polygons: { path: raw/cervical/outs/cell_boundaries.parquet }
+    molecules: { path: raw/cervical/outs/transcripts.parquet }
+    images:
+      - { id: morphology, name: Morphology, path: raw/cervical/outs/morphology_focus/ch0000_dapi.ome.tif, kind: multichannel, pixel_size: auto, pixels_per_unit: 4.705882 }
