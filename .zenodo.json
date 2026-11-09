@@ -1,0 +1,13 @@
+{
+  "title": "spatialscape examples: public spatial transcriptomics datasets as reproducible viewer apps",
+  "description": "One folder per dataset: the script that fetches the published files, the script that turns them into an AnnData, the dataset.yaml that describes the spatialscape app, and a README with the source, licence and cost of each step. The record also carries the processed objects of every dataset small enough to deposit, so an app rebuilds in three commands without the raw download.",
+  "upload_type": "software",
+  "license": "MIT",
+  "creators": [
+    { "name": "Totty, Michael", "affiliation": "Lieber Institute for Brain Development" }
+  ],
+  "keywords": ["spatial transcriptomics", "visualization", "Visium", "Xenium", "MERFISH", "CosMx", "spatial ATAC", "reproducibility"],
+  "related_identifiers": [
+    { "identifier": "https://github.com/MicTott/spatialscape", "relation": "requires", "resource_type": "software" }
+  ]
+}

@@ -1,6 +1,8 @@
 # CosMx SMI non-small-cell lung cancer (He et al. 2022): eight FFPE sections, 960 genes. Cells, the stitched composite
-# image and the traced boundaries come from processed/ (prepare.py); the transcripts from the flat files in
-# raw/. Coordinates are global pixels of 0.18 um; `translate` for each composite is what prepare.py printed.
+# image and the traced boundaries come from processed/ (prepare.py); the transcripts from the flat files in raw/.
+# Coordinates are global pixels of 0.18 um. Everything the sections share sits under `defaults`; each entry adds its
+# paths and the composite's `translate`, which is what prepare.py printed for that section (the FOV bounding box's
+# corner, in microns).
 id: cosmx-nsclc
 name: Non-small-cell lung cancer, CosMx SMI
 description: "Eight FFPE lung tumour sections from the CosMx SMI paper (He et al. 2022, 960-plex RNA): the paper's cell types and niches, every transcript with its compartment, cell boundaries traced from the segmentation masks, and the per-FOV composite images stitched into one picture per section."
@@ -20,69 +22,56 @@ defaults:
   microns: { microns_per_unit: 0.18 }
   point_radius: 5
   fields: { cell_type: cell_type, niche: niche, patient: patient, total_counts: total_counts, area: area }
+  # the transcript tables: target, x_global_px / y_global_px, cell_ID (0 = unassigned, numbered within each FOV),
+  # CellComp (Nuclear / Cytoplasm / Membrane / 0); no quality column
+  molecules: { feature_column: target, x_column: x_global_px, y_column: y_global_px, qv_column: null, cell_column: cell_ID, nucleus_column: CellComp }
 
 samples:
   - id: lung5_rep1
     name: Lung 5, replicate 1
     path: processed/Lung5_Rep1/adata.h5ad
     polygons: { path: processed/Lung5_Rep1/cell_boundaries.parquet }
-    # tx_file.csv: target, x_global_px / y_global_px, cell_ID (0 = unassigned, numbered within each FOV), CellComp (Nuclear / Cytoplasm / Membrane / 0)
-    molecules: { path: raw/flat/Lung5_Rep1/Lung5_Rep1-Flat_files_and_images/Lung5_Rep1_tx_file.csv, feature_column: target, x_column: x_global_px, y_column: y_global_px, qv_column: null, cell_column: cell_ID, nucleus_column: CellComp }
-    images:
-      - { id: composite, name: "Composite (membrane, PanCK, CD45, CD3, DAPI)", path: processed/Lung5_Rep1/composite.tif, kind: rgb, pixel_size: 0.36, translate: [574.02, 25936.02] }
+    molecules: { path: raw/flat/Lung5_Rep1/Lung5_Rep1-Flat_files_and_images/Lung5_Rep1_tx_file.csv }
+    images: [{ id: composite, name: "Composite (membrane, PanCK, CD45, CD3, DAPI)", path: processed/Lung5_Rep1/composite.tif, pixel_size: 0.36, translate: [574.02, 25936.02] }]
   - id: lung5_rep2
     name: Lung 5, replicate 2
     path: processed/Lung5_Rep2/adata.h5ad
     polygons: { path: processed/Lung5_Rep2/cell_boundaries.parquet }
-    # tx_file.csv: target, x_global_px / y_global_px, cell_ID (0 = unassigned, numbered within each FOV), CellComp (Nuclear / Cytoplasm / Membrane / 0)
-    molecules: { path: raw/flat/Lung5_Rep2/Lung5_Rep2-Flat_files_and_images/Lung5_Rep2_tx_file.csv, feature_column: target, x_column: x_global_px, y_column: y_global_px, qv_column: null, cell_column: cell_ID, nucleus_column: CellComp }
-    images:
-      - { id: composite, name: "Composite (membrane, PanCK, CD45, CD3, DAPI)", path: processed/Lung5_Rep2/composite.tif, kind: rgb, pixel_size: 0.36, translate: [1323.00, 26254.08] }
+    molecules: { path: raw/flat/Lung5_Rep2/Lung5_Rep2-Flat_files_and_images/Lung5_Rep2_tx_file.csv }
+    images: [{ id: composite, name: "Composite (membrane, PanCK, CD45, CD3, DAPI)", path: processed/Lung5_Rep2/composite.tif, pixel_size: 0.36, translate: [1323.00, 26254.08] }]
   - id: lung5_rep3
     name: Lung 5, replicate 3
     path: processed/Lung5_Rep3/adata.h5ad
     polygons: { path: processed/Lung5_Rep3/cell_boundaries.parquet }
-    # tx_file.csv: target, x_global_px / y_global_px, cell_ID (0 = unassigned, numbered within each FOV), CellComp (Nuclear / Cytoplasm / Membrane / 0)
-    molecules: { path: raw/flat/Lung5_Rep3/Lung5_Rep3-Flat_files_and_images/Lung5_Rep3_tx_file.csv, feature_column: target, x_column: x_global_px, y_column: y_global_px, qv_column: null, cell_column: cell_ID, nucleus_column: CellComp }
-    images:
-      - { id: composite, name: "Composite (membrane, PanCK, CD45, CD3, DAPI)", path: processed/Lung5_Rep3/composite.tif, kind: rgb, pixel_size: 0.36, translate: [-1839.96, -2340.00] }
+    molecules: { path: raw/flat/Lung5_Rep3/Lung5_Rep3-Flat_files_and_images/Lung5_Rep3_tx_file.csv }
+    images: [{ id: composite, name: "Composite (membrane, PanCK, CD45, CD3, DAPI)", path: processed/Lung5_Rep3/composite.tif, pixel_size: 0.36, translate: [-1839.96, -2340.00] }]
   - id: lung6
     name: Lung 6
     path: processed/Lung6/adata.h5ad
     polygons: { path: processed/Lung6/cell_boundaries.parquet }
-    # tx_file.csv: target, x_global_px / y_global_px, cell_ID (0 = unassigned, numbered within each FOV), CellComp (Nuclear / Cytoplasm / Membrane / 0)
-    molecules: { path: raw/flat/Lung6/Lung6-Flat_files_and_images/Lung6_tx_file.csv, feature_column: target, x_column: x_global_px, y_column: y_global_px, qv_column: null, cell_column: cell_ID, nucleus_column: CellComp }
-    images:
-      - { id: composite, name: "Composite (membrane, PanCK, CD45, CD3, DAPI)", path: processed/Lung6/composite.tif, kind: rgb, pixel_size: 0.36, translate: [-1036.08, -33287.04] }
+    molecules: { path: raw/flat/Lung6/Lung6-Flat_files_and_images/Lung6_tx_file.csv }
+    images: [{ id: composite, name: "Composite (membrane, PanCK, CD45, CD3, DAPI)", path: processed/Lung6/composite.tif, pixel_size: 0.36, translate: [-1036.08, -33287.04] }]
   - id: lung9_rep1
     name: Lung 9, replicate 1
     path: processed/Lung9_Rep1/adata.h5ad
     polygons: { path: processed/Lung9_Rep1/cell_boundaries.parquet }
-    # tx_file.csv: target, x_global_px / y_global_px, cell_ID (0 = unassigned, numbered within each FOV), CellComp (Nuclear / Cytoplasm / Membrane / 0)
-    molecules: { path: raw/flat/Lung9_Rep1/Lung9_Rep1-Flat_files_and_images/Lung9_Rep1_tx_file.csv, feature_column: target, x_column: x_global_px, y_column: y_global_px, qv_column: null, cell_column: cell_ID, nucleus_column: CellComp }
-    images:
-      - { id: composite, name: "Composite (membrane, PanCK, CD45, CD3, DAPI)", path: processed/Lung9_Rep1/composite.tif, kind: rgb, pixel_size: 0.36, translate: [311.94, 24616.08] }
+    molecules: { path: raw/flat/Lung9_Rep1/Lung9_Rep1-Flat_files_and_images/Lung9_Rep1_tx_file.csv }
+    images: [{ id: composite, name: "Composite (membrane, PanCK, CD45, CD3, DAPI)", path: processed/Lung9_Rep1/composite.tif, pixel_size: 0.36, translate: [311.94, 24616.08] }]
   - id: lung9_rep2
     name: Lung 9, replicate 2
     path: processed/Lung9_Rep2/adata.h5ad
     polygons: { path: processed/Lung9_Rep2/cell_boundaries.parquet }
-    # tx_file.csv: target, x_global_px / y_global_px, cell_ID (0 = unassigned, numbered within each FOV), CellComp (Nuclear / Cytoplasm / Membrane / 0)
-    molecules: { path: raw/flat/Lung9_Rep2/Lung9_Rep2-Flat_files_and_images/Lung9_Rep2_tx_file.csv, feature_column: target, x_column: x_global_px, y_column: y_global_px, qv_column: null, cell_column: cell_ID, nucleus_column: CellComp }
-    images:
-      - { id: composite, name: "Composite (membrane, PanCK, CD45, CD3, DAPI)", path: processed/Lung9_Rep2/composite.tif, kind: rgb, pixel_size: 0.36, translate: [-3411.00, -5198.04] }
+    molecules: { path: raw/flat/Lung9_Rep2/Lung9_Rep2-Flat_files_and_images/Lung9_Rep2_tx_file.csv }
+    images: [{ id: composite, name: "Composite (membrane, PanCK, CD45, CD3, DAPI)", path: processed/Lung9_Rep2/composite.tif, pixel_size: 0.36, translate: [-3411.00, -5198.04] }]
   - id: lung12
     name: Lung 12
     path: processed/Lung12/adata.h5ad
     polygons: { path: processed/Lung12/cell_boundaries.parquet }
-    # tx_file.csv: target, x_global_px / y_global_px, cell_ID (0 = unassigned, numbered within each FOV), CellComp (Nuclear / Cytoplasm / Membrane / 0)
-    molecules: { path: raw/flat/Lung12/Lung12-Flat_files_and_images/Lung12_tx_file.csv, feature_column: target, x_column: x_global_px, y_column: y_global_px, qv_column: null, cell_column: cell_ID, nucleus_column: CellComp }
-    images:
-      - { id: composite, name: "Composite (membrane, PanCK, CD45, CD3, DAPI)", path: processed/Lung12/composite.tif, kind: rgb, pixel_size: 0.36, translate: [-896.04, -28841.94] }
+    molecules: { path: raw/flat/Lung12/Lung12-Flat_files_and_images/Lung12_tx_file.csv }
+    images: [{ id: composite, name: "Composite (membrane, PanCK, CD45, CD3, DAPI)", path: processed/Lung12/composite.tif, pixel_size: 0.36, translate: [-896.04, -28841.94] }]
   - id: lung13
     name: Lung 13
     path: processed/Lung13/adata.h5ad
     polygons: { path: processed/Lung13/cell_boundaries.parquet }
-    # tx_file.csv: target, x_global_px / y_global_px, cell_ID (0 = unassigned, numbered within each FOV), CellComp (Nuclear / Cytoplasm / Membrane / 0)
-    molecules: { path: raw/flat/Lung13/Lung13-Flat_files_and_images/Lung13_tx_file.csv, feature_column: target, x_column: x_global_px, y_column: y_global_px, qv_column: null, cell_column: cell_ID, nucleus_column: CellComp }
-    images:
-      - { id: composite, name: "Composite (membrane, PanCK, CD45, CD3, DAPI)", path: processed/Lung13/composite.tif, kind: rgb, pixel_size: 0.36, translate: [-6861.06, -678.96] }
+    molecules: { path: raw/flat/Lung13/Lung13-Flat_files_and_images/Lung13_tx_file.csv }
+    images: [{ id: composite, name: "Composite (membrane, PanCK, CD45, CD3, DAPI)", path: processed/Lung13/composite.tif, pixel_size: 0.36, translate: [-6861.06, -678.96] }]
