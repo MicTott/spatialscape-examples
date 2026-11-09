@@ -13,7 +13,7 @@ the domain, three QC columns, the donor and position metadata).
 | Step | Where | What | Cost |
 |---|---|---|---|
 | `download.R` | anywhere with R and spatialLIBD | `fetch_data("spe")` → `raw/spe_dlpfc.rds` | 400 MB, minutes |
-| `spatialscape build dataset.yaml` | laptop | reads the `.rds` (once, into `bundles/.cache/`), one sample per `sample_id`, the H&E and scale from the object → `bundles/visium-human-dlpfc/` | minutes, under 8 GB |
+| `spatialscape build dataset.yaml` | laptop | reads the `.rds` once into `bundles/.cache/` (the H&E of each section is fetched from the URLs the object carries), then builds one sample per `sample_id` → `bundles/visium-human-dlpfc/` | about 2 min in all (conversion, then a 49 s build), 2.9 GB peak; 1.0 GB of output |
 
 ```bash
 Rscript download.R
@@ -23,3 +23,7 @@ spatialscape serve bundles --open
 
 Without R: `bash ../fetch_processed.sh visium-human-dlpfc` fetches the same `.rds` from the Zenodo record into
 `raw/` (for this dataset the processed object is the raw one).
+
+The object carries SpaceRanger's low-resolution H&E (600 px a side, about 16 µm per pixel), which is what the app
+shows under the spots. The paper's bucket also serves the 2,000 px `tissue_hires_image.png` of each section; to use
+those, download them into `raw/images/` and list them under `images:` in the yaml with their scale.

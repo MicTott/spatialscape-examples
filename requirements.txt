@@ -1,6 +1,6 @@
 # the spatialscape the example apps were built with: v1.0.0 once it is tagged; until then, main at this commit
 # spatialscape[images,tracks]==1.0.0
-spatialscape[images,tracks] @ git+https://github.com/MicTott/spatialscape.git@b9b827d#subdirectory=python
+spatialscape[images,tracks] @ git+https://github.com/MicTott/spatialscape.git@c4a4c0e#subdirectory=python
 # used by the prepare scripts
 scanpy
 igraph
