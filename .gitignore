@@ -10,3 +10,4 @@ __pycache__/
 .DS_Store
 zenodo/
 */dataset.init.yaml
+MANIFEST.sha256
