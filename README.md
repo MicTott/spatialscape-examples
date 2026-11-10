@@ -31,7 +31,13 @@ spatialscape serve xenium-mouse-brain/bundles --open
 
 `fetch_processed.sh` gives you what the prepare step would have made, so you skip the raw download. Images,
 boundaries and transcripts that the yaml takes from the published files (`raw/`) are optional parts of a sample:
-without them the app has the cells and the genes; with `download.sh` run as well, it has everything.
+when they are absent the build says so and leaves them out, and the app has the cells and the genes; run
+`download.sh` as well and the next `build` adds them. Until v1.0.0 is on PyPI the environment pins a git commit,
+which builds and validates apps but has no viewer: `setup_env.sh` says so, and `serve` needs a PyPI install.
+
+The workflow in `.github/workflows/examples.yml` runs on every push: the environment installs, every script
+parses, every `dataset.yaml` plans its build, and, once the Zenodo record is named in `fetch_processed.sh`, the
+two smallest datasets go from the deposited objects to a validated bundle.
 
 To go from the published files instead, each folder's README lists the steps; they are always the same shape:
 

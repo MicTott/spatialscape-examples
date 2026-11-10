@@ -1,0 +1,48 @@
+# Every push, and once a week: the environment the READMEs assume installs, every script parses, and every
+# dataset.yaml plans its build without the data being there. Once fetch_processed.sh names the Zenodo record, the
+# second job also takes the two smallest datasets from the deposited objects to a validated bundle, so these
+# scripts never drift from the spatialscape release they pin.
+name: examples
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 6 * * 1"   # Mondays: a new spatialscape or a moved download shows up without a push here
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: The environment (setup_env.sh, requirements.txt)
+        run: PYTHON=python bash setup_env.sh
+      - name: Every shell script and sbatch file parses, every Python file compiles
+        run: |
+          for f in *.sh */*.sh */slurm/*.sbatch; do bash -n "$f"; done
+          find . -name '*.py' -not -path './env/*' -print0 | xargs -0 env/bin/python -m py_compile
+      - name: Every dataset.yaml plans its build (nothing is written; abc-atlas needs its 59 files to expand its glob)
+        run: |
+          for y in */dataset.yaml; do
+            case "$y" in abc-atlas/*) continue;; esac
+            env/bin/spatialscape build "$y" --dry-run
+          done
+  from-zenodo:
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: PYTHON=python bash setup_env.sh
+      - name: The two smallest datasets, from the deposited objects to a validated bundle
+        run: |
+          rec=$(grep -o 'ZENODO_RECORD:-[0-9]*' fetch_processed.sh | tr -dc 0-9)
+          if [ "$rec" = "0000000" ]; then echo "the Zenodo record is not published yet: nothing to fetch"; exit 0; fi
+          source env/bin/activate
+          for ds in visium-cytassist-mouse-brain xenium-mouse-brain; do
+            bash fetch_processed.sh "$ds"
+            spatialscape build "$ds/dataset.yaml"       # the published image, shapes and transcripts are absent here: noted, not fatal
+            spatialscape validate "$ds/bundles/$ds"
+          done
