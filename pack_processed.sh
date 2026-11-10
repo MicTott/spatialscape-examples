@@ -11,8 +11,8 @@ if ls "$ds"/prepare*.py >/dev/null 2>&1; then data=processed; else data=raw; fi
 [ -d "$ds/$data" ] || { echo "$ds/$data is missing: run its download / prepare step first"; exit 1; }
 mkdir -p zenodo
 cp "$ds/dataset.yaml" "$ds/dataset.zenodo.yaml"
-tar -cf "zenodo/$ds-processed.tar" -C "$ds" --exclude="$data/tmp-*" "$data" dataset.zenodo.yaml
+tar -chf "zenodo/$ds-processed.tar" -C "$ds" --exclude="$data/tmp-*" "$data" dataset.zenodo.yaml   # -h: on a cluster, $data is a symbolic link
 rm "$ds/dataset.zenodo.yaml"
-(cd "$ds" && find "$data" -type f | sort | xargs shasum -a 256 | sed "s| $data/| $ds/$data/|") > "zenodo/$ds.sha256"
+(cd "$ds" && find "$data"/ -type f | sort | xargs shasum -a 256 | sed "s| $data/| $ds/$data/|") > "zenodo/$ds.sha256"
 cat zenodo/*.sha256 > zenodo/MANIFEST.sha256
 echo "zenodo/$ds-processed.tar: $(du -h "zenodo/$ds-processed.tar" | cut -f1), $(wc -l < "zenodo/$ds.sha256" | tr -d ' ') files listed in zenodo/MANIFEST.sha256"

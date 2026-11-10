@@ -60,7 +60,7 @@ The `slurm/` folder in each dataset has the same steps as SLURM jobs, with the m
 Submit them from the dataset's folder with the environment active:
 
 ```bash
-cd atera && sbatch slurm/prepare.sbatch && sbatch --dependency=singleton slurm/build.sbatch
+cd atera && j=$(sbatch --parsable slurm/prepare.sbatch) && sbatch --dependency=afterok:$j slurm/build.sbatch
 ```
 
 Downloads run wherever large transfers are allowed (a transfer node); everything else is a job. If the data has
