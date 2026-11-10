@@ -7,7 +7,7 @@ description: "Twelve Visium sections of human dorsolateral prefrontal cortex fro
 default_gene: SNAP25
 default_color: { field: domain }
 thumbnail_sample: vis_151673
-layout: { mode: grid }
+layout: { mode: grid, columns: 4 }       # four sections per donor, so one row per donor (Br5292, Br5595, Br8100)
 
 fields:
   - { id: domain, name: Layer (manual annotation), type: categorical, categories: [L1, L2, L3, L4, L5, L6, WM] }

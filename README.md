@@ -42,6 +42,9 @@ python prepare.py           # processed/  an AnnData (and tables) the yaml point
 spatialscape build dataset.yaml
 ```
 
+From an R object there is no prepare step: `visium-human-dlpfc/build.sh` downloads the SpatialExperiment, runs
+`spatialscape init` on it (the menu of what it holds) and builds the committed yaml, in under two minutes.
+
 Every dataset's `dataset.yaml` is written by hand and reads top to bottom: the dataset, its fields, then one
 entry per sample pointing at `processed/` and `raw/` beside it. Edit it and run `build` again; only what changed
 is rebuilt.

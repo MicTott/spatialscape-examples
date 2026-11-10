@@ -1,4 +1,4 @@
-# data and outputs live beside each dataset's yaml and are never committed
+# data, outputs and the yaml menus `spatialscape init` writes live beside each dataset's yaml and are never committed
 */raw/
 */processed/
 */bundles/
@@ -9,3 +9,4 @@ site/
 __pycache__/
 .DS_Store
 zenodo/
+*/dataset.init.yaml
