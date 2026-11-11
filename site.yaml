@@ -4,7 +4,7 @@ title: spatialscape examples
 intro: Public spatial transcriptomics datasets, one app per technology, built from the scripts in this repository.
 datasets:
   - config: visium-human-dlpfc/dataset.yaml
-    paper: { title: Maynard et al. 2021, Nature Neuroscience, url: https://doi.org/10.1038/s41593-020-00787-0 }
+    paper: { title: "Maynard et al. 2021, Nature Neuroscience", url: https://doi.org/10.1038/s41593-020-00787-0 }
     tags: [visium, human cortex, layers]
   - config: visium-cytassist-mouse-brain/dataset.yaml
     tags: [visium, mouse brain]
@@ -15,13 +15,13 @@ datasets:
   - config: merscope-mouse-brain/dataset.yaml
     tags: [merscope, mouse brain, transcripts]
   - config: cosmx-nsclc/dataset.yaml
-    paper: { title: He et al. 2022, Nature Biotechnology, url: https://doi.org/10.1038/s41587-022-01483-z }
+    paper: { title: "He et al. 2022, Nature Biotechnology", url: https://doi.org/10.1038/s41587-022-01483-z }
     tags: [cosmx, lung cancer, transcripts]
   - config: spatial-atac-rna-mouse-brain/dataset.yaml
-    paper: { title: Zhang et al. 2023, Nature, url: https://doi.org/10.1038/s41586-023-05795-1 }
+    paper: { title: "Zhang et al. 2023, Nature", url: https://doi.org/10.1038/s41586-023-05795-1 }
     tags: [spatial atac, multiome, tracks]
   - config: atera/dataset.yaml
     tags: [atera, whole transcriptome, transcripts]
   - config: abc-atlas/dataset.yaml
-    paper: { title: Yao et al. 2023, Nature, url: https://doi.org/10.1038/s41586-023-06812-z }
+    paper: { title: "Yao et al. 2023, Nature", url: https://doi.org/10.1038/s41586-023-06812-z }
     tags: [merfish, snrna-seq, whole mouse brain]

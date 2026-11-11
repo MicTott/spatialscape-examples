@@ -60,6 +60,13 @@ is rebuilt.
 `site.yaml` lists every dataset. `spatialscape site build site.yaml` builds the ones that are missing or stale
 and writes `site/`, a folder any static host serves; `spatialscape serve site` shows it locally.
 
+## Hosted
+
+The same gallery is online at https://d2lbhik7smmaaj.cloudfront.net (S3 behind CloudFront, the setup in the
+spatialscape "Hosting" guide). `deploy/site.yaml` lists the nine bundles behind that URL and `deploy/publish.sh`
+has the three steps: `setup` once, `bundles` to upload what changed (the cluster bundles go straight from the
+transfer node), `site` for the viewer and the registry. After a dataset is rebuilt, run the last two.
+
 ## On a cluster
 
 The `slurm/` folder in each dataset has the same steps as SLURM jobs, with the memory and time each one needed.
