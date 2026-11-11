@@ -14,6 +14,14 @@ datasets:
   - config: atera/dataset.yaml
     group: Main examples
     tags: [Atera, whole transcriptome, transcripts]
+  - config: spatial-atac-rna-mouse-brain/dataset.yaml
+    group: Main examples
+    paper: { title: "Zhang et al. 2023, Nature", url: https://doi.org/10.1038/s41586-023-05795-1 }
+    tags: [spatial ATAC + RNA, genome tracks]
+  - config: phenocycler-lymph-node/dataset.yaml
+    group: Main examples
+    paper: { title: "BioImage Archive S-BIAD2100", url: https://doi.org/10.6019/S-BIAD2100 }
+    tags: [PhenoCycler, spatial proteomics, lymph node]
   - config: visium-human-dlpfc/dataset.yaml
     group: Other technologies
     paper: { title: "Maynard et al. 2021, Nature Neuroscience", url: https://doi.org/10.1038/s41593-020-00787-0 }
@@ -34,7 +42,3 @@ datasets:
     group: Other technologies
     paper: { title: "He et al. 2022, Nature Biotechnology", url: https://doi.org/10.1038/s41587-022-01483-z }
     tags: [CosMx, lung cancer, transcripts]
-  - config: spatial-atac-rna-mouse-brain/dataset.yaml
-    group: Other technologies
-    paper: { title: "Zhang et al. 2023, Nature", url: https://doi.org/10.1038/s41586-023-05795-1 }
-    tags: [spatial ATAC + RNA, genome tracks]

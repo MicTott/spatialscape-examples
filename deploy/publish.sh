@@ -2,7 +2,7 @@
 # Publish the gallery to S3 + CloudFront (docs: spatialscape "Hosting"). Settings in deploy/aws.env.
 #   publish.sh setup     one time: the private bucket, its CORS, the CloudFront distribution reading it
 #   publish.sh bundles   upload every bundle: from the cluster (ssh, the bundles never touch the laptop),
-#                        the DLPFC and PBMC ones from this machine, atera copied inside S3 from the LIBD bucket
+#                        the DLPFC, PBMC and lymph node ones from this machine, atera copied inside S3 from the LIBD bucket
 #   publish.sh site      build the viewer + datasets.json with data_url and upload them, then invalidate
 # Credentials: `aws login --profile organoid-login` first; everything runs as $PROFILE (a role from that login).
 set -euo pipefail
@@ -43,8 +43,8 @@ bundles)
       n=$((n + 1)); [ $n -lt 40 ] || { echo "$ds: giving up after $n attempts"; exit 1; }; echo "   $ds: resuming with fresh credentials"
     done
   done
-  echo "-- visium-human-dlpfc and pbmc-multiome from this machine"
-  for ds in visium-human-dlpfc pbmc-multiome; do
+  echo "-- visium-human-dlpfc, pbmc-multiome and phenocycler-lymph-node from this machine"
+  for ds in visium-human-dlpfc pbmc-multiome phenocycler-lymph-node; do
     aws s3 sync "../$ds/bundles/$ds" "s3://$BUCKET/$ds" --only-show-errors "${EXCLUDE[@]}"
   done
   echo "-- atera, copied inside S3 from $LIBD_BUCKET"

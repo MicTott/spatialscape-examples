@@ -1,0 +1,33 @@
+# Spatial proteomics: three reactive lymph node cores imaged with a 56-antibody PhenoCycler panel (Meyer-Bender et al.,
+# BioImage Archive S-BIAD2100). Each core is one spatialproteomics object, read as it is: the per-cell intensities are
+# the expression layer (the 56 markers take the place of genes), the authors' gated cell types and neighbourhoods the
+# annotations, the label mask the cell outlines, and the 56-channel image the picture underneath.
+id: phenocycler-lymph-node
+name: Human lymph node, PhenoCycler (56 proteins)
+description: "Spatial proteomics: three reactive human lymph node cores imaged with a 56-antibody PhenoCycler panel (Meyer-Bender et al., BioImage Archive S-BIAD2100, CC0). Every cell with its outline, the authors' gated cell types and cellular neighbourhoods, each marker's intensity per cell, and the 56-channel image underneath, any six channels at a time."
+default_gene: CD20
+default_color: { field: cell_type }
+layout: { mode: grid }
+
+fields:
+  - { id: cell_type, name: "Cell type (gated, authors)", type: categorical }
+  - { id: lineage, name: "Lineage (first gating level)", type: categorical }
+  - { id: neighborhood, name: Cellular neighbourhood, type: categorical }
+  - { id: bcl6_positive, name: BCL-6 positive, type: categorical }
+  - { id: pd1_positive, name: PD-1 positive, type: categorical }
+  - { id: diversity_index, name: "Neighbour diversity (Shannon)", type: continuous }
+  - { id: homophily, name: "Homophily (neighbours of the same type)", type: continuous }
+
+defaults:
+  platform: codex
+  microns: { microns_per_unit: 0.5 }        # coordinates are image pixels; the scan is 0.5 µm per pixel
+  expression: { normalized: raw }           # arcsinh mean intensities as the authors summarised them, kept as they are
+  fields: { cell_type: labels, lineage: labels_0, neighborhood: neighborhoods, bcl6_positive: BCL-6_binarized, pd1_positive: PD-1_binarized, diversity_index: diversity_index, homophily: homophily }
+
+samples:
+  - glob: raw/LN_*.zarr                      # one object per core; {stem} is the core's name (LN_11_1 = patient 11, core 1)
+    id: "{stem}"
+    name: "Reactive lymph node, core {stem}"
+    polygons: { labels: "{dir}/{stem}.zarr/_segmentation" }     # the label mask, traced into cell outlines
+    images:
+      - { id: stains, name: Stains, path: "{dir}/{stem}.zarr/_image_raw", kind: multichannel, pixels_per_unit: 1.0, crop: false }

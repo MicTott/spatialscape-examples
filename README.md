@@ -15,6 +15,7 @@ builds straight from an R object with no prepare step.
 | `atera` | Atera whole-transcriptome in situ: 4-channel morphology, shapes, transcripts | 2 sections, 888k cells, 18k genes, 1.66 billion transcripts | 10x Genomics previews (CC BY) | reshapes the outs folders |
 | `merscope-mouse-brain` | MERSCOPE: boundaries, transcripts, DAPI and polyT mosaics | 3 slices, 233k cells, 483 genes | Vizgen public bucket | boundaries from HDF5, a Leiden clustering, mosaics reduced |
 | `cosmx-nsclc` | CosMx SMI: the paper's cell types and niches, boundaries, transcripts, composites | 8 sections, 800k cells, 960 genes | NanoString public bucket (He et al. 2022) | cell types from the Giotto object, composites stitched, boundaries traced |
+| `phenocycler-lymph-node` | PhenoCycler spatial proteomics: 56-channel image, cell outlines, gated cell types | 3 cores, 46,671 cells, 56 proteins | BioImage Archive S-BIAD2100 (CC0) | none: the yaml reads the spatialproteomics objects |
 | `spatial-atac-rna-mouse-brain` | spatial ATAC + RNA: RNA on 20 µm pixels, ATAC tracks per cluster | 3 sections, 14k pixels | GEO GSE205055 (Zhang et al. 2023) | tsv matrix to AnnData, a Leiden clustering |
 | `pbmc-multiome` | 10x Multiome, no tissue section: RNA and ATAC of the same nuclei as two UMAPs, ATAC tracks per cell type | 11,577 nuclei, 36,601 genes | 10x Genomics (CC BY) | QC, both UMAPs, cell types from marker sets, gene activity |
 | `abc-atlas` | whole mouse brain: 59 MERFISH sections and all 10x nuclei on Allen's UMAP | 4.0 M cells + 4.0 M nuclei | Allen Brain Cell Atlas (CC BY-NC) | per-section slices of a 4 M-cell matrix; a streamed concat of 106 GB |
@@ -65,7 +66,7 @@ and writes `site/`, a folder any static host serves; `spatialscape serve site` s
 ## Hosted
 
 The same gallery is online at https://d2lbhik7smmaaj.cloudfront.net (S3 behind CloudFront, the setup in the
-spatialscape "Hosting" guide). `deploy/site.yaml` lists the ten bundles behind that URL and `deploy/publish.sh`
+spatialscape "Hosting" guide). `deploy/site.yaml` lists the eleven bundles behind that URL and `deploy/publish.sh`
 has the three steps: `setup` once, `bundles` to upload what changed (the cluster bundles go straight from the
 transfer node), `site` for the viewer and the registry. After a dataset is rebuilt, run the last two.
 
@@ -89,7 +90,7 @@ address those two folders.
   README.md        source, licence, what the scripts do, cost (time, memory, disk)
   download.sh      the published files -> raw/
   prepare.py       raw/ -> processed/ (absent where the yaml reads the published files directly)
-  build.sh         every step in one command, where a laptop is enough (visium-human-dlpfc, pbmc-multiome)
+  build.sh         every step in one command, where a laptop is enough (visium-human-dlpfc, pbmc-multiome, phenocycler-lymph-node)
   dataset.yaml     the app: paths relative to this folder
   slurm/           the same steps as SLURM jobs
   tools/           one-off helpers (file manifests, palettes, checks), not needed to reproduce
