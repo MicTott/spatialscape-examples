@@ -65,10 +65,13 @@ and writes `site/`, a folder any static host serves; `spatialscape serve site` s
 
 ## Hosted
 
-The same gallery is online at https://d2lbhik7smmaaj.cloudfront.net (S3 behind CloudFront, the setup in the
-spatialscape "Hosting" guide). `deploy/site.yaml` lists the eleven bundles behind that URL and `deploy/publish.sh`
-has the three steps: `setup` once, `bundles` to upload what changed (the cluster bundles go straight from the
-transfer node), `site` for the viewer and the registry. After a dataset is rebuilt, run the last two.
+The gallery is online at https://mictott.github.io/spatialscape/: the viewer on GitHub Pages, whose card list is
+`app/public/datasets.json` in the spatialscape repository. The bundles it opens are on S3 behind CloudFront (the
+setup in the spatialscape "Hosting" guide), at the `data_url` of `deploy/site.yaml`, which lists the eleven of them.
+`deploy/publish.sh` has the three steps: `setup` once, `bundles` to upload what changed (the cluster bundles go
+straight from the transfer node), `site` for a copy of the viewer and the card list beside the bundles. After a
+dataset is rebuilt, run the last two, then copy `site/datasets.json` over `app/public/datasets.json` so the Pages
+gallery shows the same cards.
 
 ## On a cluster
 
