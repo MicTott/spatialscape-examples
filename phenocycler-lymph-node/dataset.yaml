@@ -7,6 +7,7 @@ name: Human lymph node, PhenoCycler (56 proteins)
 description: "Spatial proteomics: three reactive human lymph node cores imaged with a 56-antibody PhenoCycler panel (Meyer-Bender et al., BioImage Archive S-BIAD2100, CC0). Every cell with its outline, the authors' gated cell types and cellular neighbourhoods, each marker's intensity per cell, and the 56-channel image underneath, any six channels at a time."
 default_gene: CD20
 default_color: { field: cell_type }
+default_channels: [DAPI, CD20, CD3, CD4, CD8, HLA DR]     # the stains drawn on open: nuclei, B cells, T cells and their two main kinds, antigen-presenting cells
 layout: { mode: grid }
 
 fields:

@@ -37,6 +37,6 @@ archive serves the same cores under `data_for_publication/tmas/` of S-BIAD2100, 
 cores (lymphoma entities are listed in `derived_data/tma_metadata.csv`) drops into `raw/` and is picked up by the
 yaml's glob, as long as it carries the columns named under `fields:`.
 
-The image is the scan (`_image_raw`). The viewer opens with the first six channels of the panel; pick others in
-the Image group, for example DAPI, CD20, CD3, CD68, Ki-67 and CD31 (`&ch=DAPI|CD20|CD3|CD68|Ki-67|CD31` in the
-address).
+The image is the scan (`_image_raw`). The app opens on six of the 56 stains, named by `default_channels:` in the
+yaml (DAPI, CD20, CD3, CD4, CD8, HLA DR: six that draw in six different colours and without a background wash); the
+Image group lists all of them and any six draw at once.
