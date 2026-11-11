@@ -65,7 +65,7 @@ and writes `site/`, a folder any static host serves; `spatialscape serve site` s
 
 ## Hosted
 
-The gallery is online at https://mictott.github.io/spatialscape/: the viewer on GitHub Pages, whose card list is
+The gallery is online at https://mictott.github.io/spatialscape/examples/: the viewer on GitHub Pages, whose card list is
 `app/public/datasets.json` in the spatialscape repository. The bundles it opens are on S3 behind CloudFront (the
 setup in the spatialscape "Hosting" guide), at the `data_url` of `deploy/site.yaml`, which lists the eleven of them.
 `deploy/publish.sh` has the three steps: `setup` once, `bundles` to upload what changed (the cluster bundles go
