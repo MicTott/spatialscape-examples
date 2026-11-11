@@ -22,10 +22,10 @@ jobs:
         run: |
           for f in *.sh */*.sh */slurm/*.sbatch; do bash -n "$f"; done
           find . -name '*.py' -not -path './env/*' -print0 | xargs -0 env/bin/python -m py_compile
-      - name: Every dataset.yaml plans its build (nothing is written; abc-atlas needs its 59 files to expand its glob)
+      - name: Every dataset.yaml plans its build (nothing is written; the two yamls that list their samples with a glob need the files to expand it)
         run: |
           for y in */dataset.yaml; do
-            case "$y" in abc-atlas/*) continue;; esac
+            case "$y" in abc-atlas/*|phenocycler-lymph-node/*) continue;; esac
             env/bin/spatialscape build "$y" --dry-run
           done
   from-zenodo:
