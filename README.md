@@ -1,6 +1,6 @@
 # spatialscape examples
 
-Public spatial transcriptomics datasets built into [spatialscape](https://github.com/MicTott/spatialscape) apps:
+Public spatial transcriptomics and single-cell datasets built into [spatialscape](https://github.com/MicTott/spatialscape) apps:
 one folder per dataset with the script that fetches the published files, the script (when one is needed) that
 turns them into an AnnData, the `dataset.yaml` that describes the app, and a README with the source, the licence
 and what each step costs. Nothing is edited by hand: every app rebuilds from these files. Start with `visium-human-dlpfc`, which
@@ -16,6 +16,7 @@ builds straight from an R object with no prepare step.
 | `merscope-mouse-brain` | MERSCOPE: boundaries, transcripts, DAPI and polyT mosaics | 3 slices, 233k cells, 483 genes | Vizgen public bucket | boundaries from HDF5, a Leiden clustering, mosaics reduced |
 | `cosmx-nsclc` | CosMx SMI: the paper's cell types and niches, boundaries, transcripts, composites | 8 sections, 800k cells, 960 genes | NanoString public bucket (He et al. 2022) | cell types from the Giotto object, composites stitched, boundaries traced |
 | `spatial-atac-rna-mouse-brain` | spatial ATAC + RNA: RNA on 20 µm pixels, ATAC tracks per cluster | 3 sections, 14k pixels | GEO GSE205055 (Zhang et al. 2023) | tsv matrix to AnnData, a Leiden clustering |
+| `pbmc-multiome` | 10x Multiome, no tissue section: RNA and ATAC of the same nuclei as two UMAPs, ATAC tracks per cell type | 11,577 nuclei, 36,601 genes | 10x Genomics (CC BY) | QC, both UMAPs, cell types from marker sets, gene activity |
 | `abc-atlas` | whole mouse brain: 59 MERFISH sections and all 10x nuclei on Allen's UMAP | 4.0 M cells + 4.0 M nuclei | Allen Brain Cell Atlas (CC BY-NC) | per-section slices of a 4 M-cell matrix; a streamed concat of 106 GB |
 
 ## Reproduce an app
@@ -50,6 +51,7 @@ spatialscape build dataset.yaml
 
 From an R object there is no prepare step: `visium-human-dlpfc/build.sh` downloads the SpatialExperiment, runs
 `spatialscape init` on it (the menu of what it holds) and builds the committed yaml, in under two minutes.
+`pbmc-multiome/build.sh` does the same for the multiome (download, prepare, build, validate) in about ten.
 
 Every dataset's `dataset.yaml` is written by hand and reads top to bottom: the dataset, its fields, then one
 entry per sample pointing at `processed/` and `raw/` beside it. Edit it and run `build` again; only what changed
@@ -63,7 +65,7 @@ and writes `site/`, a folder any static host serves; `spatialscape serve site` s
 ## Hosted
 
 The same gallery is online at https://d2lbhik7smmaaj.cloudfront.net (S3 behind CloudFront, the setup in the
-spatialscape "Hosting" guide). `deploy/site.yaml` lists the nine bundles behind that URL and `deploy/publish.sh`
+spatialscape "Hosting" guide). `deploy/site.yaml` lists the ten bundles behind that URL and `deploy/publish.sh`
 has the three steps: `setup` once, `bundles` to upload what changed (the cluster bundles go straight from the
 transfer node), `site` for the viewer and the registry. After a dataset is rebuilt, run the last two.
 
@@ -87,6 +89,7 @@ address those two folders.
   README.md        source, licence, what the scripts do, cost (time, memory, disk)
   download.sh      the published files -> raw/
   prepare.py       raw/ -> processed/ (absent where the yaml reads the published files directly)
+  build.sh         every step in one command, where a laptop is enough (visium-human-dlpfc, pbmc-multiome)
   dataset.yaml     the app: paths relative to this folder
   slurm/           the same steps as SLURM jobs
   tools/           one-off helpers (file manifests, palettes, checks), not needed to reproduce

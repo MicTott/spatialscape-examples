@@ -1,27 +1,40 @@
 # Every example as one gallery: `spatialscape site build site.yaml` builds any dataset whose bundle is missing or
 # stale and writes site/ (the viewer, the bundles and the landing page). `spatialscape serve site` shows it.
 title: spatialscape examples
-intro: Public spatial transcriptomics datasets, one app per technology, built from the scripts in this repository.
+intro: Public spatial transcriptomics and single-cell datasets, one app per technology, built from the scripts in this repository.
+# `group:` is the heading a card sits under, in order of first appearance; `tags:` are the pills after the platform.
 datasets:
-  - config: visium-human-dlpfc/dataset.yaml
-    paper: { title: "Maynard et al. 2021, Nature Neuroscience", url: https://doi.org/10.1038/s41593-020-00787-0 }
-    tags: [visium, human cortex, layers]
-  - config: visium-cytassist-mouse-brain/dataset.yaml
-    tags: [visium, mouse brain]
-  - config: visium-hd-mouse-brain/dataset.yaml
-    tags: [visium hd, mouse brain]
-  - config: xenium-mouse-brain/dataset.yaml
-    tags: [xenium, mouse brain, transcripts]
-  - config: merscope-mouse-brain/dataset.yaml
-    tags: [merscope, mouse brain, transcripts]
-  - config: cosmx-nsclc/dataset.yaml
-    paper: { title: "He et al. 2022, Nature Biotechnology", url: https://doi.org/10.1038/s41587-022-01483-z }
-    tags: [cosmx, lung cancer, transcripts]
-  - config: spatial-atac-rna-mouse-brain/dataset.yaml
-    paper: { title: "Zhang et al. 2023, Nature", url: https://doi.org/10.1038/s41586-023-05795-1 }
-    tags: [spatial atac, multiome, tracks]
-  - config: atera/dataset.yaml
-    tags: [atera, whole transcriptome, transcripts]
   - config: abc-atlas/dataset.yaml
+    group: Main examples
     paper: { title: "Yao et al. 2023, Nature", url: https://doi.org/10.1038/s41586-023-06812-z }
-    tags: [merfish, snrna-seq, whole mouse brain]
+    tags: [whole mouse brain, 8 million cells]
+  - config: pbmc-multiome/dataset.yaml
+    group: Main examples
+    tags: [10x multiome, PBMC, genome tracks]
+  - config: atera/dataset.yaml
+    group: Main examples
+    tags: [Atera, whole transcriptome, transcripts]
+  - config: visium-human-dlpfc/dataset.yaml
+    group: Other technologies
+    paper: { title: "Maynard et al. 2021, Nature Neuroscience", url: https://doi.org/10.1038/s41593-020-00787-0 }
+    tags: [human cortex, layers]
+  - config: visium-cytassist-mouse-brain/dataset.yaml
+    group: Other technologies
+    tags: [CytAssist, mouse brain]
+  - config: visium-hd-mouse-brain/dataset.yaml
+    group: Other technologies
+    tags: [mouse brain]
+  - config: xenium-mouse-brain/dataset.yaml
+    group: Other technologies
+    tags: [mouse brain, transcripts]
+  - config: merscope-mouse-brain/dataset.yaml
+    group: Other technologies
+    tags: [MERSCOPE, mouse brain, transcripts]
+  - config: cosmx-nsclc/dataset.yaml
+    group: Other technologies
+    paper: { title: "He et al. 2022, Nature Biotechnology", url: https://doi.org/10.1038/s41587-022-01483-z }
+    tags: [CosMx, lung cancer, transcripts]
+  - config: spatial-atac-rna-mouse-brain/dataset.yaml
+    group: Other technologies
+    paper: { title: "Zhang et al. 2023, Nature", url: https://doi.org/10.1038/s41586-023-05795-1 }
+    tags: [spatial ATAC + RNA, genome tracks]

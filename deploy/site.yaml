@@ -2,7 +2,7 @@
 # build deploy/site.yaml -o site` writes the viewer and datasets.json only (nothing is copied: data_url says where the
 # bundles are); publish.sh uploads the bundles and the site. Each bundle: path, or on the laptop its manifest alone.
 title: spatialscape examples
-intro: Public spatial transcriptomics datasets, one app per technology, each built from the scripts in the spatialscape-examples repository.
+intro: Public spatial transcriptomics and single-cell datasets, one app per technology, each built from the scripts in the spatialscape-examples repository.
 nav:
   title: spatialscape
   logo: favicon.svg
@@ -11,26 +11,39 @@ nav:
     - { label: Scripts, url: https://github.com/MicTott/spatialscape-examples }
     - { label: GitHub, url: https://github.com/MicTott/spatialscape }
 data_url: https://d2lbhik7smmaaj.cloudfront.net
+# `group:` is the heading a card sits under, in order of first appearance; `tags:` are the pills after the platform.
 datasets:
-  - bundle: ../visium-human-dlpfc/bundles/visium-human-dlpfc
-    paper: { title: "Maynard et al. 2021, Nature Neuroscience", url: https://doi.org/10.1038/s41593-020-00787-0 }
-    tags: [visium, human cortex, layers]
-  - bundle: ../visium-cytassist-mouse-brain/bundles/visium-cytassist-mouse-brain
-    tags: [visium, mouse brain]
-  - bundle: ../visium-hd-mouse-brain/bundles/visium-hd-mouse-brain
-    tags: [visium hd, mouse brain]
-  - bundle: ../xenium-mouse-brain/bundles/xenium-mouse-brain
-    tags: [xenium, mouse brain, transcripts]
-  - bundle: ../merscope-mouse-brain/bundles/merscope-mouse-brain
-    tags: [merscope, mouse brain, transcripts]
-  - bundle: ../cosmx-nsclc/bundles/cosmx-nsclc
-    paper: { title: "He et al. 2022, Nature Biotechnology", url: https://doi.org/10.1038/s41587-022-01483-z }
-    tags: [cosmx, lung cancer, transcripts]
-  - bundle: ../spatial-atac-rna-mouse-brain/bundles/spatial-atac-rna-mouse-brain
-    paper: { title: "Zhang et al. 2023, Nature", url: https://doi.org/10.1038/s41586-023-05795-1 }
-    tags: [spatial atac, multiome, tracks]
-  - bundle: ../atera/bundles/atera
-    tags: [atera, whole transcriptome, transcripts]
   - bundle: ../abc-atlas/bundles/abc-atlas
+    group: Main examples
     paper: { title: "Yao et al. 2023, Nature", url: https://doi.org/10.1038/s41586-023-06812-z }
-    tags: [merfish, snrna-seq, whole mouse brain]
+    tags: [whole mouse brain, 8 million cells]
+  - bundle: ../pbmc-multiome/bundles/pbmc-multiome
+    group: Main examples
+    tags: [10x multiome, PBMC, genome tracks]
+  - bundle: ../atera/bundles/atera
+    group: Main examples
+    tags: [Atera, whole transcriptome, transcripts]
+  - bundle: ../visium-human-dlpfc/bundles/visium-human-dlpfc
+    group: Other technologies
+    paper: { title: "Maynard et al. 2021, Nature Neuroscience", url: https://doi.org/10.1038/s41593-020-00787-0 }
+    tags: [human cortex, layers]
+  - bundle: ../visium-cytassist-mouse-brain/bundles/visium-cytassist-mouse-brain
+    group: Other technologies
+    tags: [CytAssist, mouse brain]
+  - bundle: ../visium-hd-mouse-brain/bundles/visium-hd-mouse-brain
+    group: Other technologies
+    tags: [mouse brain]
+  - bundle: ../xenium-mouse-brain/bundles/xenium-mouse-brain
+    group: Other technologies
+    tags: [mouse brain, transcripts]
+  - bundle: ../merscope-mouse-brain/bundles/merscope-mouse-brain
+    group: Other technologies
+    tags: [MERSCOPE, mouse brain, transcripts]
+  - bundle: ../cosmx-nsclc/bundles/cosmx-nsclc
+    group: Other technologies
+    paper: { title: "He et al. 2022, Nature Biotechnology", url: https://doi.org/10.1038/s41587-022-01483-z }
+    tags: [CosMx, lung cancer, transcripts]
+  - bundle: ../spatial-atac-rna-mouse-brain/bundles/spatial-atac-rna-mouse-brain
+    group: Other technologies
+    paper: { title: "Zhang et al. 2023, Nature", url: https://doi.org/10.1038/s41586-023-05795-1 }
+    tags: [spatial ATAC + RNA, genome tracks]

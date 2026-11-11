@@ -1,8 +1,9 @@
 # the spatialscape the example apps were built with: v1.0.0 once it is tagged; until then, main at this commit
 # spatialscape[images,tracks]==1.0.0
-spatialscape[images,tracks] @ git+https://github.com/MicTott/spatialscape.git@6d8fb5b#subdirectory=python
+spatialscape[images,tracks] @ git+https://github.com/MicTott/spatialscape.git@759a924#subdirectory=python
 # used by the prepare scripts
 scanpy
+umap-learn<0.6    # 0.6.0 refuses the neighbour distances scanpy 1.12 passes it above 8,192 cells (a numba typing error in sc.pp.neighbors)
 igraph
 leidenalg
 scikit-image

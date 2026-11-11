@@ -1,0 +1,43 @@
+# 10x PBMC multiome: RNA and ATAC from the same nuclei, as two embeddings of one AnnData (prepare.py) that share
+# every field, so one legend colours both. The ATAC sample carries the genome tracks, pooled per cell type from the
+# fragment file. Gene activity, marker-set scores and the most variable peaks are features of the same matrix,
+# told apart by a prefix: `feature_groups` gives each prefix its own tab beside the genes.
+id: pbmc-multiome
+name: Human PBMCs, 10x Multiome (RNA + ATAC)
+description: "Human peripheral blood mononuclear cells profiled for gene expression and chromatin accessibility in the same nuclei (10x Genomics public dataset): the RNA and ATAC UMAPs side by side with one cell type legend, accessibility tracks per cell type in the genome panel, and gene activity, marker-set scores and the most variable peaks beside the genes."
+default_gene: MS4A1
+default_color: { field: cell_type }
+thumbnail_sample: rna
+layout: { mode: grid, columns: 2 }
+
+feature_groups:
+  - { id: activity, name: Gene activity (ATAC), pattern: "^activity: ", units: log-normalized fragments }
+  - { id: scores, name: Marker-set scores, pattern: "^score: ", units: score }
+  - { id: peaks, name: Peaks, pattern: "^peak: ", units: log-normalized accessibility }
+
+fields:
+  - { id: cell_type, name: "Cell type (marker sets, computed here)", type: categorical }
+  - { id: leiden, name: "RNA cluster (Leiden, computed here)", type: categorical }
+  - { id: total_counts, name: RNA UMIs, type: continuous }
+  - { id: detected_genes, name: Detected genes, type: continuous }
+  - { id: mito_percent, name: Mito %, type: continuous }
+  - { id: atac_fragments, name: ATAC fragments, type: continuous }
+  - { id: tss_fraction, name: TSS fraction, type: continuous }
+  - { id: frip, name: Fraction in peaks, type: continuous }
+
+defaults:
+  platform: snrnaseq
+  kind: embedding
+  path: processed/pbmc.h5ad
+  group: PBMC
+  expression: { layer: X, normalized: lognorm }    # prepare.py wrote log-normalized values
+  fields: { cell_type: cell_type, leiden: leiden, total_counts: total_counts, detected_genes: n_genes, mito_percent: pct_mito, atac_fragments: atac_fragments, tss_fraction: tss_fraction, frip: frip }
+
+samples:
+  - id: rna
+    name: RNA UMAP
+    coords: obsm/X_umap_rna
+  - id: atac
+    name: ATAC UMAP
+    coords: obsm/X_umap_atac
+    tracks: { fragments: raw/atac_fragments.tsv.gz, by: [cell_type], genome: hg38 }    # insertions per million per cell type; gene models: UCSC RefSeq, downloaded once
