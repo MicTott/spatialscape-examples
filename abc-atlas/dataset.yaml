@@ -7,6 +7,7 @@ name: Whole mouse brain (Allen Brain Cell Atlas)
 description: "The adult mouse brain atlas of Yao et al. and Zhang et al. (2023): 4.0 million cells on 59 coronal MERFISH sections with the 500-gene panel, and all 4.0 million 10x nuclei at 32,285 genes on the atlas's whole-brain UMAP, labelled at every level of the 5,000-cluster taxonomy and the sections by CCF region. Data CC BY-NC 4.0, Allen Institute."
 default_gene: Slc17a7
 default_color: { field: subclass }
+thumbnail_sample: merfish_C57BL6J-638850.38    # the gallery card: a coronal section through hippocampus and thalamus, not the first (hindbrain) one
 palette: palette.json
 layout: { mode: grid, gutter_fraction: 0.05 }
 

@@ -51,7 +51,9 @@ bundles)
   aws s3 sync "s3://$LIBD_BUCKET/atera" "s3://$BUCKET/atera" --only-show-errors ;;
 site)
   spatialscape site build site.yaml -o ../site
-  aws s3 sync ../site "s3://$BUCKET/" --delete --exclude "*/*" --only-show-errors     # only the top level and assets/: the bundles stay
+  # only the top level and assets/: the bundles stay. no-cache: the page and datasets.json are checked against the bucket
+  # on every visit, so a deploy shows at once (without the header a browser keeps showing its old copy for hours)
+  aws s3 sync ../site "s3://$BUCKET/" --delete --exclude "*/*" --only-show-errors --cache-control no-cache
   aws s3 sync ../site/assets "s3://$BUCKET/assets" --delete --only-show-errors
   aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION_ID" --paths "/index.html" "/datasets.json" "/favicon.svg" "/assets/*" --query Invalidation.Id --output text ;;
 *) sed -n '2,8p' "$0"; exit 1 ;;
