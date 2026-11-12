@@ -1,7 +1,7 @@
 # Every example as one gallery: `spatialscape site build site.yaml` builds any dataset whose bundle is missing or
 # stale and writes site/ (the viewer, the bundles and the landing page). `spatialscape serve site` shows it.
 title: spatialscape examples
-intro: Public spatial transcriptomics and single-cell datasets, one app per technology, built from the scripts in this repository.
+intro: Public spatial omics and single-cell datasets, one app per technology, built from the scripts in this repository.
 # `group:` is the heading a card sits under, in order of first appearance; `tags:` are the pills after the platform.
 datasets:
   - config: abc-atlas/dataset.yaml

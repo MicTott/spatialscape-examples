@@ -1,6 +1,6 @@
 # spatialscape examples
 
-Public spatial transcriptomics and single-cell datasets built into [spatialscape](https://github.com/MicTott/spatialscape) apps:
+Public spatial omics and single-cell datasets built into [spatialscape](https://github.com/MicTott/spatialscape) apps:
 one folder per dataset with the script that fetches the published files, the script (when one is needed) that
 turns them into an AnnData, the `dataset.yaml` that describes the app, and a README with the source, the licence
 and what each step costs. Nothing is edited by hand: every app rebuilds from these files. Start with `visium-human-dlpfc`, which

@@ -2,7 +2,7 @@
 # build deploy/site.yaml -o site` writes the viewer and datasets.json only (nothing is copied: data_url says where the
 # bundles are); publish.sh uploads the bundles and the site. Each bundle: path, or on the laptop its manifest alone.
 title: spatialscape examples
-intro: Public spatial transcriptomics and single-cell datasets, one app per technology, each built from the scripts in the spatialscape-examples repository.
+intro: Public spatial omics and single-cell datasets, one app per technology, each built from the scripts in the spatialscape-examples repository.
 nav:
   title: spatialscape
   logo: favicon.svg
